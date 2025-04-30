@@ -14,7 +14,7 @@ phases:
       - echo "Setting up Databricks authentication"
       - export DATABRICKS_HOST="https://dbc-19dd5697-db5b.cloud.databricks.com"
       - export DATABRICKS_TOKEN="dapied254a643e30617a3526aa324911c84a"
-      - databricks auth login --host $DATABRICKS_HOST --token $DATABRICKS_TOKEN
+      - databricks auth login --host "$DATABRICKS_HOST" --token "$DATABRICKS_TOKEN"
 
   build:
     commands:
@@ -24,7 +24,8 @@ phases:
   post_build:
     commands:
       - echo "Triggering job execution"
-      - databricks jobs run --json "{ \"task_key\": \"run-script-dev\" }"
+      - |
+        databricks jobs run --json '{ "task_key": "run-script-dev" }'
 
 artifacts:
   files:
