@@ -14,7 +14,6 @@ phases:
       - echo "Setting up Databricks authentication"
       - export DATABRICKS_HOST="https://dbc-19dd5697-db5b.cloud.databricks.com"
       - export DATABRICKS_TOKEN="dapied254a643e30617a3526aa324911c84a"
-      - databricks configure --host "$DATABRICKS_HOST" --token "$DATABRICKS_TOKEN"
 
   build:
     commands:
