@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.x
+      python: 3.8
     commands:
       - pip install --upgrade pip
       - pip install databricks-cli
@@ -11,7 +11,8 @@ phases:
   pre_build:
     commands:
       - echo "Configuring Databricks CLI authentication"
-      - databricks configure --host https://dbc-19dd5697-db5b.cloud.databricks.com --token dapied254a643e30617a3526aa324911c84a
+      - export DATABRICKS_HOST="https://dbc-19dd5697-db5b.cloud.databricks.com"
+      - export DATABRICKS_TOKEN="dapied254a643e30617a3526aa324911c84a"
 
   build:
     commands:
@@ -21,7 +22,7 @@ phases:
   post_build:
     commands:
       - echo "Triggering job execution"
-      - databricks jobs run-now --task-name run-script
+      - databricks jobs run-now --task-name run-script-dev
 
 artifacts:
   files:
