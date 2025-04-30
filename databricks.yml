@@ -1,15 +1,15 @@
 bundle:
-  name: sample-python-bundle
-  description: Deploy a PySpark script to Databricks
+  name: sample-python-bundle-dev
+  description: Deploy a PySpark script to Databricks (Dev Environment)
 
 artifacts:
   main:
     type: workspace-files
     path: ./src
-    destination: /Workspace/sample-python
+    destination: /Workspace/dev/sample-python
 
 tasks:
-  run-script:
+  run-script-dev:
     type: python-wheels
     package_name: sample_python_script
     entry_point: main
@@ -17,10 +17,10 @@ tasks:
       new:
         num_workers: 1
         spark_version: 11.3.x-scala2.12
-        node_type_id: i3.xlarge
+        node_type_id: i3.large
         autoscale:
           min_workers: 1
-          max_workers: 1
+          max_workers: 2
 
 permissions:
   - group: users

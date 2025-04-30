@@ -17,8 +17,8 @@ phases:
 
   build:
     commands:
-      - echo "Deploying Databricks Bundle"
-      - databricks bundle deploy --config databricks.yml
+      - echo "Deploying Databricks Workspace Files"
+      - databricks workspace import-dir ./src /Workspace/dev/sample-python
 
   post_build:
     commands:
