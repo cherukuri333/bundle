@@ -13,16 +13,17 @@ phases:
       - echo "Configuring Databricks CLI authentication"
       - export DATABRICKS_HOST="https://dbc-19dd5697-db5b.cloud.databricks.com"
       - export DATABRICKS_TOKEN="dapied254a643e30617a3526aa324911c84a"
+      - databricks auth login --host $DATABRICKS_HOST --token $DATABRICKS_TOKEN
 
   build:
     commands:
-      - echo "Deploying Databricks Asset Bundle"
-      - databricks asset-bundle deploy --bundle-config databricks.yml
+      - echo "Deploying Databricks Bundle"
+      - databricks bundle deploy --config databricks.yml
 
   post_build:
     commands:
       - echo "Triggering job execution"
-      - databricks jobs run-now --task-name run-script-dev
+      - databricks jobs run --json '{ "task_key": "run-script-dev" }'
 
 artifacts:
   files:
