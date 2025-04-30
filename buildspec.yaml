@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - pip install --upgrade pip
+      - pip install databricks-cli
+
+  pre_build:
+    commands:
+      - echo "Configuring Databricks CLI authentication"
+      - databricks configure --host $DATABRICKS_HOST --token $DATABRICKS_TOKEN
+
+  build:
+    commands:
+      - echo "Deploying Databricks Asset Bundle"
+      - databricks asset-bundle deploy --bundle-config databricks.yml
+
+  post_build:
+    commands:
+      - echo "Triggering job execution"
+      - databricks jobs run-now --task-name run-script
+
+artifacts:
+  files:
+    - databricks.yml
+    - src/sample_script.py
