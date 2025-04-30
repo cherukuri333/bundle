@@ -1,0 +1,30 @@
+bundle:
+  name: sample-python-bundle
+  description: Deploy a PySpark script to Databricks
+
+artifacts:
+  main:
+    type: workspace-files
+    path: ./src
+    destination: /Workspace/sample-python
+
+tasks:
+  run-script:
+    type: python-wheels
+    package_name: sample_python_script
+    entry_point: main
+    cluster:
+      new:
+        num_workers: 2
+        spark_version: 11.3.x-scala2.12
+        node_type_id: i3.xlarge
+        autoscale:
+          min_workers: 1
+          max_workers: 3
+
+permissions:
+  - group: users
+    level: CAN_RUN
+
+workspace:
+  host: https://<your-databricks-instance>
